@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity >=0.5.0 <0.6.0;
 
-import "./zombiehelper.sol";
+import "./zombie_helper.sol";
 
 contract ZombieAttack is ZombieHelper {
     uint randNonce = 0;

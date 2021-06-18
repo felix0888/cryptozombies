@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity >=0.5.0 <0.6.0;
 
-import "./zombiefactory.sol";
+import "./zombie_factory.sol";
 
 contract KittyInterface {
     function getKitty(uint256 _id) external view returns (
@@ -21,7 +21,7 @@ contract KittyInterface {
 contract ZombieFeeding is ZombieFactory {
     KittyInterface kittyContract;
 
-    modifier ownerOf(uint _zombieId) {
+    modifier onlyOwnerOf(uint _zombieId) {
         require(msg.sender == zombieToOwner[_zombieId]);
         _;
     }
@@ -38,7 +38,7 @@ contract ZombieFeeding is ZombieFactory {
         return (_zombie.readyTime <= now);
     }
 
-    function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) internal ownerOf(_zombieId) {
+    function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) internal onlyOwnerOf(_zombieId) {
         Zombie storage myZombie = zombies[_zombieId];
         require(_isReady(myZombie));
         _targetDna = _targetDna % dnaModulus;
